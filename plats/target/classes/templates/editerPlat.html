@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	 layout:decorate="temp">
+	
+	<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+	 <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	 <script type="text/javascript"
+	src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<head>
+<meta charset="utf-8">
+<title>Ajout des Plats</title>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+<div class="container mt-5">
+<div class="card">
+
+<div class="card-header">
+ Modifier des Plats
+ </div>
+ <div class="card-body">
+ <form action="savePlat" method="post">
+<div class="form-group">
+<label class="control-label" hidden>ID Plat :</label>
+ <input type="hidden" name="idPlat" class="form-control"
+th:value="${plat.idPlat}" />
+</div>
+<div class="form-group">
+<label class="control-label">Nom Plat :</label>
+<input type="text" name="nomPlat" class="form-control"
+th:value="${plat.nomPlat}" />
+<span th:errors= ${plat.nomPlat} class="text-danger">
+</span>
+</div>
+<div class="form-group">
+<label class="control-label">Prix Plat :</label>
+ <input type="text" name="prixPlat" class="form-control"
+th:value="${plat.prixPlat}" />
+ <span th:errors=${plat.prixPlat} class="text-danger">
+</span>
+</div>
+<div class="form-group">
+<label class="control-label">date de préparation :</label>
+<input type="date" name="datePreparation" class="form-control" 
+th:value="${plat.datePreparation}"/>
+<span th:errors=${plat.datePreparation} class="text-danger">
+</span>
+</div>
+<div class="form-group">
+						<label class="control-label">Type :</label> 
+						<select name="type" class="form-control" th:value="${plat.type.idType}"
+							th:if="${!#strings.isEmpty(plat.type)}">
+							<option th:each="c:${types}" th:if="${mode=='edit'}"
+								th:value="${c.idType}" th:text="${c.nomType}"
+								th:selected="${ c.idType==plat.type.idType}"></option>
+
+							<option th:each="c:${types}" th:if="${mode=='new'}"
+								th:value="${c.idType}" th:text="${c.nomType}"></option>
+						</select> 
+						<select name="type" class="form-control"
+							th:if="${#strings.isEmpty(plat.type)}">
+							<option th:each="c:${types}" th:value="${c.idType}"
+								th:text="${c.nomType}"></option>
+						</select>
+					</div>
+<div>
+<button type="submit" class="btn btn-primary" >modifier</button>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
